@@ -1,0 +1,5 @@
+$: << '.'
+
+module Kaiseki
+	autoload :stream,		'grammar/stream'
+end
