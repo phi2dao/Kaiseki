@@ -13,6 +13,7 @@ module Kaiseki
 			pos = stream.pos
 			match = stream.getc(-1).match /\A#{@expected}/
 			if match
+				stream.rewind pos + match.to_s.length
 				parsed << match.to_s
 				parsed.info[:captures] = match.captures
 				parsed
