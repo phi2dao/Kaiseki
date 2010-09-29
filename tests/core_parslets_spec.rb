@@ -102,6 +102,24 @@ describe ProcParslet do
 	end
 end
 
+describe EOFParslet do
+	before :each do
+		@parslet = EOFParslet.new
+	end
+	
+	describe 'parse' do
+		it 'should parse a correct match' do
+			stream = Stream.new ''
+			@parslet.parse(stream).should == :EOF
+		end
+		
+		it 'should not parse an incorrect match' do
+			stream = Stream.new 'a'
+			lambda { @parslet.parse stream }.should raise_error ParseError
+		end
+	end
+end
+
 describe ParsletCombination do
 	before :each do
 		@parslet = ParsletCombination.new Parslet.new(:foo), Parslet.new(:bar)
@@ -237,7 +255,7 @@ describe ParsletRepetition do
 	
 	describe 'on initialize' do
 		it 'should have the correct parslets' do
-			@parslet.expected.should == Parslet.new(:foo)
+			@parslet.parseable.should == Parslet.new(:foo)
 		end
 		
 		it 'should have the correct name' do

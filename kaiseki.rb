@@ -2,6 +2,7 @@ $: << '.'
 
 module Kaiseki
 	autoload :ArrayResult,			'grammar/array_result'
+	autoload :EOFParslet,			'grammar/eof_parslet'
 	autoload :ParseError,			'grammar/parse_error'
 	autoload :Parslet,				'grammar/parslet'
 	autoload :ParsletChoice,		'grammar/parslet_choice'

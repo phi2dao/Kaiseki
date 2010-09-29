@@ -2,10 +2,10 @@ require 'kaiseki'
 
 module Kaiseki
 	class ParsletRepetition
-		attr_reader :expected, :min, :max
+		attr_reader :parseable, :min, :max
 		
-		def initialize expected, min, max = nil
-			@expected = expected
+		def initialize parseable, min, max = nil
+			@parseable = parseable
 			@min = min
 			@max = max
 		end
@@ -16,7 +16,7 @@ module Kaiseki
 			pos = stream.pos
 			while @max.nil? or parsed.length < @max
 				begin
-					parsed << @expected.parse(stream, options)
+					parsed << @parseable.parse(stream, options)
 				rescue ParseError
 					if options.key? :skipping
 						begin
@@ -35,14 +35,14 @@ module Kaiseki
 			
 			if parsed.length < @min
 				stream.rewind pos
-				raise ParseError.new "required #{@min} match#{'es' unless @min == 1} but obtained #{parsed.length} (expected `#{@expected}')"
+				raise ParseError.new "required #{@min} match#{'es' unless @min == 1} but obtained #{parsed.length} (expected `#{@parseable}')"
 			else
 				parsed
 			end
 		end
 		
 		def to_s
-			"repeat(#{@min}, #{@max}): #{@expected}"
+			"repeat(#{@min}, #{@max}): #{@parseable}"
 		end
 		
 		def to_parseable
@@ -50,7 +50,7 @@ module Kaiseki
 		end
 		
 		def eql? other
-			other.is_a?(ParsletRepetition) and other.expected == @expected and other.min == @min and other.max == @max
+			other.is_a?(ParsletRepetition) and other.parseable == @parseable and other.min == @min and other.max == @max
 		end
 		
 		alias :== :eql?
