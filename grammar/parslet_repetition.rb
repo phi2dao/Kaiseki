@@ -2,6 +2,8 @@ require 'kaiseki'
 
 module Kaiseki
 	class ParsletRepetition
+		include ParsletCombining
+		
 		attr_reader :parseable, :min, :max
 		
 		def initialize parseable, min, max = nil
@@ -35,7 +37,8 @@ module Kaiseki
 			
 			if parsed.length < @min
 				stream.rewind pos
-				raise ParseError.new "required #{@min} match#{'es' unless @min == 1} but obtained #{parsed.length} (expected `#{@parseable}')"
+				raise ParseError.new "required #{@min} match#{'es' unless @min == 1} but obtained #{parsed.length} (expected `#{@parseable}')",
+						:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
 			else
 				parsed
 			end

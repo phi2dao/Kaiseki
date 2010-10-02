@@ -4,11 +4,13 @@ module Kaiseki
 	autoload :AndPredicate,			'grammar/and_predicate'
 	autoload :ArrayResult,			'grammar/array_result'
 	autoload :EOFParslet,			'grammar/eof_parslet'
+	autoload :LocationTracking,		'grammar/location_tracking'
 	autoload :NotPredicate,			'grammar/not_predicate'
 	autoload :ParseError,			'grammar/parse_error'
 	autoload :Parslet,				'grammar/parslet'
 	autoload :ParsletChoice,		'grammar/parslet_choice'
 	autoload :ParsletCombination,	'grammar/parslet_combination'
+	autoload :ParsletCombining,		'grammar/parslet_combining'
 	autoload :ParsletMerger,		'grammar/parslet_merger'
 	autoload :ParsletOmission,		'grammar/parslet_omission'
 	autoload :ParsletRepetition,	'grammar/parslet_repetition'
@@ -20,3 +22,7 @@ module Kaiseki
 	autoload :StringParslet,		'grammar/string_parslet'
 	autoload :StringResult,			'grammar/string_result'
 end
+
+require 'additions/proc'
+require 'additions/regexp'
+require 'additions/string'

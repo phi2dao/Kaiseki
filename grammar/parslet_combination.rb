@@ -2,6 +2,8 @@ require 'kaiseki'
 
 module Kaiseki
 	class ParsletCombination
+		include ParsletCombining
+		
 		attr_reader :components
 		
 		def initialize *components

@@ -15,10 +15,12 @@ module Kaiseki
 				actual = stream.getc
 				if actual.nil?
 					stream.rewind pos
-					raise ParseError.new "unexpected end-of-string (expected `#{char}') while parsing `#{@expected}'"
+					raise ParseError.new "unexpected end-of-string (expected `#{char}') while parsing `#{@expected}'",
+							:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
 				elsif actual != char
 					stream.rewind pos
-					raise ParseError.new "unexpected character `#{actual}' (expected `#{char}') while parsing `#{@expected}'"
+					raise ParseError.new "unexpected character `#{actual}' (expected `#{char}') while parsing `#{@expected}'",
+							:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
 				else
 					parsed << actual
 				end

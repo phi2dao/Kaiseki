@@ -14,7 +14,8 @@ module Kaiseki
 				@parseable.parse stream, options
 			rescue ParseError
 				stream.rewind pos
-				raise ParseError.new "Predicate not satisfied (expecting `#{@parseable}')"
+				raise ParseError.new "Predicate not satisfied (expecting `#{@parseable}')",
+						:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
 			end
 			stream.rewind pos
 			throw :PredicateSuccess

@@ -2,6 +2,8 @@ require 'kaiseki'
 
 module Kaiseki
 	class Predicate
+		include ParsletCombining
+		
 		attr_reader :parseable
 		
 		def initialize parseable

@@ -2,6 +2,8 @@ require 'kaiseki'
 
 module Kaiseki
 	class Parslet
+		include ParsletCombining
+		
 		attr_reader :expected
 		
 		def initialize expected

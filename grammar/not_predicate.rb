@@ -17,7 +17,8 @@ module Kaiseki
 				throw :PredicateSuccess
 			end
 			stream.rewind pos
-			raise ParseError.new "predicate not satisfied (`#{@parseable}' not allowed)"
+			raise ParseError.new "predicate not satisfied (`#{@parseable}' not allowed)",
+					:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
 		end
 	end
 end

@@ -19,7 +19,8 @@ module Kaiseki
 				parsed
 			else
 				stream.rewind pos
-				raise ParseError.new "non-matching characters while parsing `#{@expected}'"
+				raise ParseError.new "non-matching characters while parsing `#{@expected}'",
+						:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
 			end
 		end
 	end

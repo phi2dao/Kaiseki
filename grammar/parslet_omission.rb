@@ -1,11 +1,10 @@
 require 'kaiseki'
 
 module Kaiseki
-	class ParsletOmission
-		attr_reader :parseable
-		
+	class ParsletOmission < Predicate
 		def initialize parseable
-			@parseable = parseable
+			super parseable
+			@prefix = 'skip: '
 		end
 		
 		def parse stream, options = {}
@@ -19,19 +18,5 @@ module Kaiseki
 			end
 			throw :PredicateSuccess
 		end
-		
-		def to_s
-			"skip: #{@parseable}"
-		end
-		
-		def to_parseable
-			self
-		end
-		
-		def eql? other
-			other.is_a?(ParsletOmission) and other.parseable == @parseable
-		end
-		
-		alias :== :eql?
 	end
 end
