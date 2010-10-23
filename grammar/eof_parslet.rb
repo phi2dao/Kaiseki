@@ -13,7 +13,7 @@ module Kaiseki
 				raise ParseError.new "unexpected character `#{char}' (expected EOF)",
 						:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
 			else
-				:EOF
+				throw :PredicateSuccess
 			end
 		end
 		

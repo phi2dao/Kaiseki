@@ -106,7 +106,7 @@ describe ParsletOmission do
 	describe 'parse' do
 		it 'should parse a complete match' do
 			stream = Stream.new 'a?'
-			@parslet.parse(stream).should == ['a', :EOF]
+			@parslet.parse(stream).should == ['a']
 		end
 		
 		it 'should not parse an incorrect match' do

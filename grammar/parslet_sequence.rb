@@ -18,11 +18,9 @@ module Kaiseki
 					begin
 						parsed << parseable.parse(stream, options)
 					rescue ParseError => e
-						if options.key? :skipping
+						if options[:skipping]
 							begin
-								mod_options = options.dup
-								mod_options.delete :skipping
-								options[:skipping].parse stream, mod_options
+								options[:skipping].parse stream, options.merge(:skipping => nil)
 								redo
 							rescue ParseError
 								stream.rewind pos

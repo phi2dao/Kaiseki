@@ -13,6 +13,7 @@ module Kaiseki
 		
 		def append object
 			@components << object.to_parseable
+			self
 		end
 		
 		def parse *args

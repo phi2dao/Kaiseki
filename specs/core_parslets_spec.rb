@@ -110,7 +110,7 @@ describe EOFParslet do
 	describe 'parse' do
 		it 'should parse a correct match' do
 			stream = Stream.new ''
-			@parslet.parse(stream).should == :EOF
+			lambda { @parslet.parse(stream) }.should throw_symbol :PredicateSuccess
 		end
 		
 		it 'should not parse an incorrect match' do

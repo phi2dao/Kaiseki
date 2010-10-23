@@ -25,3 +25,15 @@ describe Proc do
 		end
 	end
 end
+
+describe Symbol do
+	describe 'to_parseable' do
+		it 'should match an identical SymbolParslet if not :EOF' do
+			:foobar.to_parseable.should == SymbolParslet.new(:foobar)
+		end
+		
+		it 'should match an EOFParslet id :EOF' do
+			:EOF.to_parseable.should == EOFParslet.new
+		end
+	end
+end
