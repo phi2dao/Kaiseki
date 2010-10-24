@@ -5,7 +5,6 @@ module Kaiseki
 	autoload :ArrayResult,			'grammar/array_result'
 	autoload :EOFParslet,			'grammar/eof_parslet'
 	autoload :Grammar,				'grammar/grammar'
-	autoload :GrammarNode,			'grammar/grammar_node'
 	autoload :LocationTracking,		'grammar/location_tracking'
 	autoload :Node,					'grammar/node'
 	autoload :NotPredicate,			'grammar/not_predicate'
