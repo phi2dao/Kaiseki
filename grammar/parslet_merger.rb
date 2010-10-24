@@ -25,7 +25,7 @@ module Kaiseki
 					rescue ParseError => e
 						if options[:skipping]
 							begin
-								options[:skipping].parse stream, options.merge(:skipping => nil)
+								options[:skipping].parse stream, options.merge(:skipping => nil, :logger => nil)
 								redo
 							rescue ParseError
 								stream.rewind pos

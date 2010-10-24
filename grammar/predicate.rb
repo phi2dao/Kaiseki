@@ -8,7 +8,7 @@ module Kaiseki
 		
 		def initialize parseable
 			@parseable = parseable
-			@prefix = 'predicate:'
+			@prefix = 'predicate'
 		end
 		
 		def parse *args
@@ -16,7 +16,7 @@ module Kaiseki
 		end
 		
 		def to_s
-			@prefix + @parseable.to_s
+			"<#{@prefix}:#{@parseable}>"
 		end
 		
 		def to_parseable

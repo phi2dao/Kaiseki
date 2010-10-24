@@ -4,7 +4,7 @@ module Kaiseki
 	class AndPredicate < Predicate
 		def initialize parseable
 			super parseable
-			@prefix = 'and:'
+			@prefix = 'and'
 		end
 		
 		def parse stream, options = {}

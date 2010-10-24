@@ -131,14 +131,14 @@ describe ParsletCombination do
 		end
 		
 		it 'should have the correct name' do
-			@parslet.to_s.should == 'foo -- bar'
+			@parslet.to_s.should == '<foo -- bar>'
 		end
 	end
 	
 	describe 'append' do
 		it 'should append a parslet to @parslets' do
 			@parslet.append Parslet.new(:foobar)
-			@parslet.to_s.should == 'foo -- bar -- foobar'
+			@parslet.to_s.should == '<foo -- bar -- foobar>'
 		end
 	end
 	

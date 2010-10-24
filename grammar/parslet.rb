@@ -15,7 +15,7 @@ module Kaiseki
 		end
 		
 		def to_s
-			@expected.to_s.dup
+			"#{@expected}"
 		end
 		
 		def to_parseable

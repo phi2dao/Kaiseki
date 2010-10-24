@@ -52,27 +52,10 @@ module Kaiseki
 		
 		def parse source, options = {}
 			stream = source.is_a?(Stream) ? source : Stream.new(source)
-			begin
-				ParseResult.new :grammar => self, :stream => stream, :options => options, :result => parse!(stream, options)
-			rescue ParseError => e
-				ParseResult.new :grammar => self, :stream => stream, :options => options, :error => e
-			end
-		end
-		
-		def parse source, options = {}
-			raise StandardError, "starting rule not defined" unless @starting_rule
-			stream = source.is_a?(Stream) ? source : Stream.new(source)
 			result = ParseResult.new self, stream, options
-			options[:grammar] = self
-			options[:result] = result
-			options[:file] = stream.file
-			options[:rule] = @starting_rule.is_a?(SymbolParslet) ? @starting_rule.expected : :root
-			options[:skipping] = @skipping_rule
-			options[:simplify] = @simplify
+			result.logger = ParseLogger.new
 			begin
-				catch :PredicateSuccess do
-					result.result = @starting_rule.parse stream, options
-				end
+				result.result = parse! stream, options.merge(:logger => result.logger)
 			rescue ParseError => e
 				result.error = e
 			end
@@ -130,34 +113,4 @@ module Kaiseki
 			false
 		end
 	end
-	
-	class GrammarNode < Node
-		def parse parseable
-			raise StandardError, "rule `#{@name}' already defined" if @grammar.rules.key? @name
-			@grammar.rules[@name] = parseable.to_parseable
-		end
-		
-		def override options
-			raise StandardError, "rule `#{@name}' not defined" unless @grammar.rules.key? @name
-			raise StandardError, "override already deinfed for rule `#{@name}'" if @grammar.overrides.key? @name
-			@grammar.overrides[@name] = options
-		end
-		
-		def node options = {:params => [:results]}
-			superclass = options.key?(:superclass) ? options[:superclass] : Node
-			raise TypeError, "can't convert #{superclass.class} into Class" unless superclass.is_a? Class
-			raise StandardError, "rule `#{@name}' not defined" unless @grammar.rules.key? @name
-			raise StandardError, "node already defined for rule `#{@name}'" if @grammar.nodes.key? @name
-			node = @grammar.nodes[@name] = superclass.subclass(*options[:params])
-		end
-		
-		def action &block
-			raise StandardError, "rule `#{@name}' not defined" unless @grammar.rules.key? @name
-			raise StandardError, "action already defined for rule `#{@name}'" if @grammar.actions.key? @name
-			@grammar.nodes[@name] = node unless @grammar.nodes.key? @name
-			@grammar.actions[@name] = block
-		end
-	end
-	
-	GrammarNode.bind :name, :grammar
 end

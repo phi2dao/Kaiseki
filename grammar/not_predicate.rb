@@ -4,7 +4,7 @@ module Kaiseki
 	class NotPredicate < Predicate
 		def initialize parseable
 			super parseable
-			@prefix = 'not:'
+			@prefix = 'not'
 		end
 		
 		def parse stream, options = {}

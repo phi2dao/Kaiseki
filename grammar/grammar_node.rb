@@ -1,5 +1,3 @@
-require 'kaiseki'
-
 module Kaiseki
 	class GrammarNode < Node
 		def parse parseable
@@ -28,6 +26,6 @@ module Kaiseki
 			@grammar.actions[@name] = block
 		end
 	end
-	
+
 	GrammarNode.bind :name, :grammar
 end

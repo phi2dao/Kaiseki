@@ -12,7 +12,7 @@ describe Predicate do
 		end
 		
 		it 'should have the correct name' do
-			@predicate.to_s.should == 'predicate:foo'
+			@predicate.to_s.should == '<predicate:foo>'
 		end
 	end
 	

@@ -22,7 +22,7 @@ module Kaiseki
 				rescue ParseError
 					if options[:skipping]
 						begin
-							options[:skipping].parse stream, options.merge(:skipping => nil)
+							options[:skipping].parse stream, options.merge(:skipping => nil, :logger => nil)
 							redo
 						rescue ParseError
 							break

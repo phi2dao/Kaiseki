@@ -4,7 +4,7 @@ module Kaiseki
 	class ParsletOmission < Predicate
 		def initialize parseable
 			super parseable
-			@prefix = 'skip:'
+			@prefix = 'skip'
 		end
 		
 		def parse stream, options = {}

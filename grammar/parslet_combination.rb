@@ -21,7 +21,7 @@ module Kaiseki
 		end
 		
 		def to_s
-			@components.join " #{@delimiter} "
+			"<#{@components.join " #{@delimiter} "}>"
 		end
 		
 		def to_parseable
