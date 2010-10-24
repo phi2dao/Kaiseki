@@ -2,10 +2,14 @@ require 'kaiseki'
 
 module Kaiseki
 	class Stream
+		attr_reader :file
+		
 		def initialize source
 			if source.is_a? String
+				@file = nil
 				@string = source.dup
 			elsif source.is_a? File
+				@file = source.path
 				@string = ''
 				source.each_char {|c| @string << c }
 			else

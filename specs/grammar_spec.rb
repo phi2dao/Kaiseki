@@ -72,15 +72,16 @@ end
 SimpleGrammar = Grammar.subclass do
 	starting :document
 	skipping /\s+/
+	simplify
 	
 	rule :document do
-		parse :number >> :sec_num.zero_or_more & :EOF
-		action { @results[0].to_a }
+		parse :number >> :sec_num.zero_or_more >> :EOF
+		action { @results.is_a?(Fixnum) ? [@results] : @results }
 	end
 	
 	rule :sec_num do
 		parse ','.skip & :number
-		action { @results[0] }
+		action { @results }
 	end
 	
 	rule :number do
@@ -110,7 +111,7 @@ describe SimpleGrammar do
 			@grammar.parse!(stream).should == [1, 2, 3, 4]
 		end
 		
-		it 'should raise an error when parsing an non-matcihng string' do
+		it 'should raise an error when parsing an non-matching string' do
 			stream = Stream.new 'a-z'
 			lambda { @grammar.parse! stream }.should raise_error ParseError
 		end

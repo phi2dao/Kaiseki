@@ -4,7 +4,7 @@ module Kaiseki
 	class NotPredicate < Predicate
 		def initialize parseable
 			super parseable
-			@prefix = 'not: '
+			@prefix = 'not:'
 		end
 		
 		def parse stream, options = {}
@@ -18,7 +18,7 @@ module Kaiseki
 			end
 			stream.rewind pos
 			raise ParseError.new "predicate not satisfied (`#{@parseable}' not allowed)",
-					:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
+					options.merge(:line_end => stream.line, :column_end => stream.column)
 		end
 	end
 end

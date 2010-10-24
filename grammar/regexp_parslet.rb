@@ -20,7 +20,7 @@ module Kaiseki
 			else
 				stream.rewind pos
 				raise ParseError.new "non-matching characters while parsing `#{@expected}'",
-						:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
+						options.merge(:line_end => stream.line, :column_end => stream.column)
 			end
 		end
 	end

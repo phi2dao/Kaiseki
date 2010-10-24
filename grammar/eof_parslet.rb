@@ -11,7 +11,7 @@ module Kaiseki
 			if char
 				stream.rewind pos
 				raise ParseError.new "unexpected character `#{char}' (expected EOF)",
-						:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
+						options.merge(:line_end => stream.line, :column_end => stream.column)
 			else
 				throw :PredicateSuccess
 			end

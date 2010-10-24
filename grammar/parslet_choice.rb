@@ -20,8 +20,8 @@ module Kaiseki
 					error = e
 				end
 			end
-			raise ParseError.new "no valid alternatives (#{error.string})",
-					:line_end => stream.line, :columm_end => stream.column, :rule => options[:rule]
+			raise ParseError.new "no valid alternatives (#{error})",
+					options.merge(:line_end => stream.line, :column_end => stream.column)
 		end
 	end
 end

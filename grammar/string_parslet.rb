@@ -16,11 +16,11 @@ module Kaiseki
 				if actual.nil?
 					stream.rewind pos
 					raise ParseError.new "unexpected end-of-string (expected `#{char}') while parsing `#{@expected}'",
-							:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
+							options.merge(:line_end => stream.line, :column_end => stream.column)
 				elsif actual != char
 					stream.rewind pos
 					raise ParseError.new "unexpected character `#{actual}' (expected `#{char}') while parsing `#{@expected}'",
-							:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
+							options.merge(:line_end => stream.line, :column_end => stream.column)
 				else
 					parsed << actual
 				end

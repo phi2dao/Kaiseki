@@ -15,5 +15,13 @@ module Kaiseki
 		def success?
 			@error.nil?
 		end
+		
+		def error_msg
+			if @error
+				"#{@error.class}: #{@error}\n\t#{@error.location}"
+			else
+				false
+			end
+		end
 	end
 end

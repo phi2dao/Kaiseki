@@ -36,9 +36,17 @@ module Kaiseki
 			if parsed.length < @min
 				stream.rewind pos
 				raise ParseError.new "required #{@min} match#{'es' unless @min == 1} but obtained #{parsed.length} (expected `#{@parseable}')",
-						:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
+						options.merge(:line_end => stream.line, :column_end => stream.column)
 			else
-				parsed
+				if options[:simplify]
+					if @min == 0 and @max == 1
+						parsed.length == 0 ? nil : parsed.first
+					else
+						parsed
+					end
+				else
+					parsed
+				end
 			end
 		end
 		

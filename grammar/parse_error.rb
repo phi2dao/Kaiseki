@@ -4,7 +4,7 @@ module Kaiseki
 	class ParseError < Exception
 		include LocationTracking
 		
-		attr_reader :info
+		attr_reader :file, :rule
 		
 		def initialize message, info = {}
 			super message
@@ -12,13 +12,12 @@ module Kaiseki
 			self.column_start = info[:column_start] if info.key? :column_start
 			self.line_end = info[:line_end] if info.key? :line_end
 			self.column_end = info[:column_end] if info.key? :column_end
-			@info = info
+			@file = info[:file]
+			@rule = info[:rule]
 		end
 		
-		alias :string :to_s
-		
-		def to_s
-			"ParseError: #{string}#{"\n\tin `#{@info[:rule]}'" if @info[:rule]}\n\tfrom line #{self.line_end} column #{self.column_end}"
+		def location
+			"from #{@file || 'unknown'}:#{line_end + 1}:#{column_end + 1} in #{@rule || 'unknown'}"
 		end
 	end
 end

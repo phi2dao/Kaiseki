@@ -4,7 +4,7 @@ module Kaiseki
 	class AndPredicate < Predicate
 		def initialize parseable
 			super parseable
-			@prefix = 'and: '
+			@prefix = 'and:'
 		end
 		
 		def parse stream, options = {}
@@ -15,7 +15,7 @@ module Kaiseki
 			rescue ParseError
 				stream.rewind pos
 				raise ParseError.new "Predicate not satisfied (expecting `#{@parseable}')",
-						:line_end => stream.line, :column_end => stream.column, :rule => options[:rule]
+						options.merge(:line_end => stream.line, :column_end => stream.column)
 			end
 			stream.rewind pos
 			throw :PredicateSuccess

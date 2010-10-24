@@ -13,6 +13,8 @@ module Kaiseki
 			@nodes = Hash.new {|hash, key| raise NameError, "node `#{key}' is not defined" }
 			@actions = Hash.new {|hash, key| raise NameError, "action `#{key}' is not defined" }
 			
+			@simplify = false
+			
 			instance_eval &block if block_given?
 		end
 		
@@ -30,24 +32,30 @@ module Kaiseki
 			raise TypeError, "can't convert #{symbol.class} into Symbol" unless symbol.is_a? Symbol
 			raise StandardError, "rule `#{symbol}' already defined" if @rules.key? symbol
 			GrammarNode.new(symbol, self).instance_eval(&block) if block_given?
-			@rules[symbol] = ProcParslet.new proc { raise NotImplementedError, "rule `#{symbol}' not yet implemented" } unless @rules.key? symbol
+			@rules[symbol] = ProcParslet.new { raise NotImplementedError, "rule `#{symbol}' not yet implemented" } unless @rules.key? symbol
 		end
 		
-		def parse! string, options = {}
+		def simplify
+			@simplify = true
+		end
+		
+		def parse! source, options = {}
 			raise StandardError, "starting rule not defined" unless @starting_rule
-			stream = string.is_a?(Stream) ? string : Stream.new(string)
+			stream = source.is_a?(Stream) ? source : Stream.new(source)
 			options[:grammar] = self
-			options[:rule] = @starting_rule.is_a?(SymbolParslet) ? @starting_rule.symbol : :root
+			options[:file] = stream.file
+			options[:rule] = @starting_rule.is_a?(SymbolParslet) ? @starting_rule.expected : :root
 			options[:skipping] = @skipping_rule
+			options[:simplify] = @simplify
 			@starting_rule.parse stream, options
 		end
 		
-		def parse string, options = {}
-			stream = string.is_a?(Stream) ? string : Stream.new(string)
+		def parse source, options = {}
+			stream = source.is_a?(Stream) ? source : Stream.new(source)
 			begin
 				ParseResult.new :grammar => self, :stream => stream, :options => options, :result => parse!(stream, options)
 			rescue ParseError => e
-				ParseResult.new :grammar => self, :stream => stream, :options => options, :error => e.to_s
+				ParseResult.new :grammar => self, :stream => stream, :options => options, :error => e
 			end
 		end
 		

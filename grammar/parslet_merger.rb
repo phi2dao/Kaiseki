@@ -38,7 +38,15 @@ module Kaiseki
 					end
 				end
 			end
-			parsed
+			if options[:simplify]
+				if parsed.length == 1
+					parsed.first
+				else
+					parsed
+				end
+			else
+				parsed
+			end
 		end
 	end
 end

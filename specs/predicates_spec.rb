@@ -12,7 +12,7 @@ describe Predicate do
 		end
 		
 		it 'should have the correct name' do
-			@predicate.to_s.should == 'predicate: foo'
+			@predicate.to_s.should == 'predicate:foo'
 		end
 	end
 	
@@ -93,16 +93,6 @@ describe ParsletOmission do
 		@parslet = ParsletSequence.new RegexpParslet.new(/[a-z]/), @predicate, EOFParslet.new
 	end
 	
-	describe 'on initialize' do
-		it 'should have the correct @parseable' do
-			@predicate.parseable.should == StringParslet.new('?')
-		end
-		
-		it 'shoould have the correct name' do
-			@predicate.to_s.should == 'skip: ?'
-		end
-	end
-	
 	describe 'parse' do
 		it 'should parse a complete match' do
 			stream = Stream.new 'a?'
@@ -117,22 +107,6 @@ describe ParsletOmission do
 		it 'should not function on its own' do
 			stream = Stream.new '?'
 			lambda { @predicate.parse stream }.should raise_error ArgumentError
-		end
-	end
-	
-	describe 'to_parseable' do
-		it 'should return self' do
-			@predicate.to_parseable.should == @predicate
-		end
-	end
-	
-	describe 'eql?' do
-		it 'should match a matching object' do
-			@predicate.should == ParsletOmission.new(StringParslet.new('?'))
-		end
-		
-		it 'should not match a non-matching object' do
-			@predicate.should_not == ParsletOmission.new(Parslet.new(:bar))
 		end
 	end
 end
