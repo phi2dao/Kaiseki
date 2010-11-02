@@ -1,57 +1,49 @@
 require 'pathname'
 
-DIR_PATH = Pathname.new(__FILE__).realpath.dirname
-
 module Kaiseki
-	VERSION = '0.0.0'
-	
-	grammar = %w[
-		parslet_combining
-		parslet_logging
-		location_tracking
-		parse_error
-		parse_result
-		string_result
-		array_result
-		
-		stream
-		parslet
-		proc_parslet
-		regexp_parslet
-		string_parslet
-		symbol_parslet
-		eof_parslet
-		
-		parslet_combination
-		parslet_sequence
-		parslet_merger
-		parslet_choice
-		parslet_repetition
-		
-		predicate
-		and_predicate
-		not_predicate
-		parslet_omission
-		
-		grammar
-		parse_logger
-		node
-		grammar_node
-		log_node
-	]
-	
-	grammar.each do |path|
-		require DIR_PATH + 'grammar' + path
-	end
+	VERSION = '0.0.1'
 end
 
-additions = %w[
-	proc
-	regexp
-	string
-	symbol
-]
+DIR_PATH = Pathname.new(__FILE__).realpath.dirname
 
-additions.each do |path|
-	require DIR_PATH + 'additions' + path
+[
+	'grammar/parslet_combining',
+	'grammar/parslet_logging',
+	'grammar/location_tracking',
+	'grammar/parse_error',
+	'grammar/parse_result',
+	'grammar/string_result',
+	'grammar/array_result',
+	
+	'grammar/stream',
+	'grammar/parslet',
+	'grammar/proc_parslet',
+	'grammar/regexp_parslet',
+	'grammar/string_parslet',
+	'grammar/symbol_parslet',
+	'grammar/eof_parslet',
+	
+	'grammar/parslet_combination',
+	'grammar/parslet_sequence',
+	'grammar/parslet_merger',
+	'grammar/parslet_choice',
+	'grammar/parslet_repetition',
+	
+	'grammar/predicate',
+	'grammar/and_predicate',
+	'grammar/not_predicate',
+	'grammar/parslet_omission',
+	
+	'grammar/grammar',
+	'grammar/parse_logger',
+	'grammar/node',
+	'grammar/grammar_node',
+	'grammar/log_node',
+	
+	'additions/proc',
+	'additions/regexp',
+	'additions/string',
+	'additions/symbol',
+].each do |path|
+	require DIR_PATH + path
 end
