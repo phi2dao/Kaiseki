@@ -1,10 +1,10 @@
 require 'pathname'
 
 module Kaiseki
-	VERSION = '0.0.1'
+	VERSION = '0.0.2'
 end
 
-DIR_PATH = Pathname.new(__FILE__).realpath.dirname
+dir_path = Pathname.new(__FILE__).realpath.dirname
 
 [
 	'grammar/parslet_combining',
@@ -44,6 +44,6 @@ DIR_PATH = Pathname.new(__FILE__).realpath.dirname
 	'additions/regexp',
 	'additions/string',
 	'additions/symbol',
-].each do |path|
-	require DIR_PATH + path
+	].each do |path|
+	require dir_path + path
 end
