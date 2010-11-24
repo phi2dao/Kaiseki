@@ -8,7 +8,7 @@ module Kaiseki
 			@options = options
 			@result = nil
 			@error = nil
-			@logger = nil
+			@logger = ParseLogger.new
 		end
 		
 		def parsed?

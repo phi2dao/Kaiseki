@@ -1,7 +1,7 @@
 require 'pathname'
 
 module Kaiseki
-	VERSION = '0.0.2'
+	VERSION = '0.0.3'
 end
 
 dir_path = Pathname.new(__FILE__).realpath.dirname

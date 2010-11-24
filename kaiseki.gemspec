@@ -10,9 +10,6 @@ Gem::Specification.new do |s|
 	s.summary = 'A parsing expression grammar generator written in Ruby.'
 	s.description = 'A parsing expression grammar generator written in Ruby.'
 	
-	s.add_development_dependency 'rspec'
-	
 	s.files = Dir['lib/kaiseki.rb', 'lib/additions/*.rb', 'lib/grammar/*.rb']
-	s.test_files = Dir['lib/specs/*.rb']
 	s.require_path = 'lib'
 end

@@ -51,7 +51,6 @@ module Kaiseki
 		def parse source, options = {}
 			stream = source.is_a?(Stream) ? source : Stream.new(source)
 			result = ParseResult.new self, stream, options
-			result.logger = ParseLogger.new
 			begin
 				result.result = parse! stream, options.merge(:logger => result.logger)
 			rescue ParseError => e
