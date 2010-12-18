@@ -13,6 +13,8 @@ module Kaiseki
 	require file_path + '/mod_regexp'
 	require file_path + '/mod_symbol'
 	require file_path + '/mod_proc'
+	require file_path + '/mod_file'
+	require file_path + '/mod_kernel'
 	
 	#load parsers
 	require file_path + '/parser_basic'
@@ -44,4 +46,9 @@ module Kaiseki
 	require file_path + '/grammar'
 	require file_path + '/rule'
 	require file_path + '/action'
+	
+	#load varible manipulators
+	require file_path + '/var_set'
+	require file_path + '/var_get'
+	require file_path + '/var_insert'
 end

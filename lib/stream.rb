@@ -3,7 +3,12 @@ module Kaiseki
 		attr_reader :pos
 		
 		def initialize string
-			@string = string
+			if string.is_a? File
+				@string = ''
+				string.each_char {|n| @string << n }
+			else
+				@string = string.to_s
+			end
 			@pos = 0
 			#index_lines
 		end
@@ -27,9 +32,9 @@ module Kaiseki
 			end
 		end
 		
-		def look
-			if @string.length - @pos > 10
-				"\"#{@string[@pos, 7] + '...'}\""
+		def look len = 10
+			if @string.length - @pos > len
+				"\"#{@string[@pos, len - 3] + '...'}\""
 			else
 				"\"#{@string[@pos..-1]}\""
 			end

@@ -2,7 +2,7 @@ module Kaiseki
 	class FilterResult < PackageParser
 		attr_reader :node, :block
 		
-		def initialize expected, node = Class.new(Node).bind(:result), &block
+		def initialize expected, node = Node.subclass([:result], :arity => {:result => 0}), &block
 			super expected
 			@node = node
 			@block = block
@@ -18,7 +18,12 @@ module Kaiseki
 					raise "can't use named nodes without a grammar"
 				end
 			end
-			node = node_class.new @expected.parse(stream, options), options[:global]
+			result = @expected.parse stream, options
+			if result.is_a? Array
+				node = node_class.new result, options[:global]
+			else
+				node = node_class.new [result]
+			end
 			node.eval &@block
 		end
 		

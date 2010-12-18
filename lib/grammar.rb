@@ -4,11 +4,11 @@ module Kaiseki
 		attr_accessor :starting_rule, :skipping_rule, :simplify
 		
 		def initialize &block
-			@rules = Hash.new {|hash, key| raise "rule #{key.inspect} not defined" }
-			@nodes = Hash.new {|hash, key| raise "node #{key.inspect} not defined" }
+			@rules = Hash.new {|hash, key| raise "rule #{key.inspect} undefined" }
+			@nodes = Hash.new {|hash, key| raise "node #{key.inspect} undefined" }
 			@starting_rule = nil
 			@skipping_rule = nil
-			@simplify = false
+			@simplify = true
 			
 			instance_eval &block if block_given?
 		end
@@ -31,7 +31,7 @@ module Kaiseki
 				if @starting_rule
 					@starting_rule.parse stream, default_options.merge(options)
 				else
-					raise "a starting rule must be defined"
+					raise "starting rule undefined"
 				end
 			end
 		end
@@ -75,11 +75,12 @@ module Kaiseki
 		end
 		
 		def node name, args, options = {}
+			args.must_be Array
 			if @nodes.key? name
 				raise "node #{name.inspect} already defined"
 			else
 				parent = options[:class] || Node
-				@nodes[name] = Class.new(parent).bind(args, options)
+				@nodes[name] = parent.subclass args, options
 			end
 		end
 	end

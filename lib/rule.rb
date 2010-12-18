@@ -12,7 +12,7 @@ module Kaiseki
 		
 		def parses parseable
 			if @parseable
-				raise "parseable for rule #{@name.inspect} already given"
+				raise "parseable for rule #{@name.inspect} already defined"
 			else
 				@parseable = parseable.to_parseable
 			end
@@ -22,7 +22,7 @@ module Kaiseki
 			if @parseable
 				@parseable = @parseable.override options
 			else
-				raise "parseable for rule #{@name.inspect} not yet given"
+				raise "parseable for rule #{@name.inspect} undefined"
 			end
 		end
 		
@@ -30,7 +30,7 @@ module Kaiseki
 			if @parseable
 				@parseable = @parseable.override :skipping => parseable.to_parseable
 			else
-				raise "parseable for rule #{@name.inspect} not yet given"
+				raise "parseable for rule #{@name.inspect} undefined"
 			end
 		end
 		
@@ -38,7 +38,7 @@ module Kaiseki
 			if @parseable
 				@parseable = @parseable.override :simplify => bool
 			else
-				raise "parseable for rule #{@name.inspect} not yet given"
+				raise "parseable for rule #{@name.inspect} undefined"
 			end
 		end
 		
@@ -46,7 +46,7 @@ module Kaiseki
 			if @parseable
 				@parseable = @parseable.merge
 			else
-				raise "parseable for rule #{@name.inspect} not yet given"
+				raise "parseable for rule #{@name.inspect} undefined"
 			end
 		end
 		
@@ -54,25 +54,34 @@ module Kaiseki
 			if @parseable
 				@parseable = @parseable.cast to_class
 			else
-				raise "parseable for rule #{@name.inspect} not yet given"
+				raise "parseable for rule #{@name.inspect} undefined"
 			end
 		end
 		
 		def filter node = @name, &block
 			if @parseable
-				@grammar.nodes[@name] = Class.new(Node).bind(:result) unless @grammar.nodes.key? @name
+				@grammar.nodes[@name] ||= Node.subclass([:result], :arity => {:result => 0})
 				@parseable = @parseable.filter node, &block
 			else
-				raise "parseable for rule #{@name.inspect} not yet given"
+				raise "parseable for rule #{@name.inspect} undefined"
 			end
 		end
 		
 		def node args, options = {}
+			args.must_be Array
 			if @grammar.nodes.key? @name
 				raise "node #{@name.inspect} already defined"
 			else
 				parent = options[:class] || Node
-				@grammar.nodes[@name] = Class.new(parent).bind(args, options)
+				@grammar.nodes[@name] = parent.subclass args, options
+			end
+		end
+		
+		def set *vars
+			if @parseable
+				@parseable = @parseable.set *vars
+			else
+				raise "parseable for rule #{@name.inspect} undefined"
 			end
 		end
 	end

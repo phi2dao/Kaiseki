@@ -24,8 +24,7 @@ module Kaiseki
 						if options[:skipping]
 							begin
 								catch :SkipSuccess do
-									options[:skipping].parse stream, options.merge(:skipping => nil, :logger => nil)
-									#options[:logger].stack.last[2].pop if options.key? :logger
+									options[:skipping].parse stream, options.merge(:skipping => nil)
 								end
 								redo
 							rescue ParseError

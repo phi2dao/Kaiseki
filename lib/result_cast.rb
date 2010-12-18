@@ -10,9 +10,9 @@ module Kaiseki
 		def parse! stream, options = {}
 			result = @expected.parse stream, options
 			if @to_class == Integer
-				result.to_i
+				result.is_a?(MatchData) ? result.to_s.to_i : result.to_i
 			elsif @to_class == Float
-				result.to_f
+				result.is_a?(MatchData) ? result.to_s.to_f : result.to_f
 			elsif @to_class == String
 				result.is_a?(Array) ? result.join : result.to_s
 			elsif @to_class == Symbol
