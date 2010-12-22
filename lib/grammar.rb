@@ -27,6 +27,7 @@ module Kaiseki
 					:rule => 'main',
 					:skipping => @skipping_rule,
 					:simplify => @simplify,
+					:global => {},
 				}
 				if @starting_rule
 					@starting_rule.parse stream, default_options.merge(options)

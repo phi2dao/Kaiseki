@@ -13,7 +13,7 @@ module Kaiseki
 		end
 		
 		def to_s
-			"#{@expected.inspect} (ins)"
+			"#{@expected.is_a?(Symbol) ? "$#{@expected}" : @expected.inspect} (ins)"
 		end
 	end
 end

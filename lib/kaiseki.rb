@@ -1,4 +1,5 @@
 module Kaiseki
+	VERSION = '1.0.1'
 	file_path = File.dirname __FILE__
 	
 	#load basic kaiseki classes

@@ -34,7 +34,7 @@ module Kaiseki
 		alias :== :eql?
 		
 		def to_s
-			"#{@expected.inspect} (match)"
+			"#{@expected.is_a?(Symbol) ? "$#{@expected}" : @expected.inspect} (match)"
 		end
 	end
 end

@@ -24,7 +24,7 @@ module Kaiseki
 			else
 				node = node_class.new [result]
 			end
-			node.eval &@block
+			node.eval options[:global], &@block
 		end
 		
 		def eql? other
