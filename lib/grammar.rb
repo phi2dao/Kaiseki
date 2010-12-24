@@ -13,6 +13,10 @@ module Kaiseki
 			instance_eval &block if block_given?
 		end
 		
+		def [] rule
+			GrammarStub.new @rules[rule], self
+		end
+		
 		def parse stream, options = {}
 			ParseResult.new do
 				parse! stream.to_stream, options

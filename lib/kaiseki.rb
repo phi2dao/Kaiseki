@@ -1,5 +1,5 @@
 module Kaiseki
-	VERSION = '1.0.4'
+	VERSION = '1.0.5'
 	file_path = File.dirname __FILE__
 	
 	#load basic kaiseki classes
@@ -45,6 +45,7 @@ module Kaiseki
 	
 	#load grammar classes
 	require file_path + '/grammar'
+	require file_path + '/grammar_stub'
 	require file_path + '/rule'
 	require file_path + '/action'
 	

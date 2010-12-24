@@ -14,7 +14,7 @@ module Kaiseki
 			stream.lock do
 				result = []
 				count = 0
-				while max.nil? or count < max
+				while max.nil? or count < @max
 					begin
 						catch :SkipSuccess do
 							result << @expected.parse(stream, options)
