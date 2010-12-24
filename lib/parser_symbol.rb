@@ -6,7 +6,7 @@ module Kaiseki
 					options[:grammar].rules[@expected].parse stream, options.merge(:rule => @expected)
 				else
 					STDERR.puts "skipping #{self}: not implemented"
-					throw :SkipSuccess
+					throw :SkipSuccess, :NotImplemented
 				end
 			else
 				raise "can't use #{self} without a grammar"

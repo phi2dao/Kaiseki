@@ -6,7 +6,14 @@ module Kaiseki
 				error = true
 				@expected.each do |n|
 					begin
-						return n.parse stream, options
+						value = catch :SkipSuccess do
+							return n.parse stream, options
+						end
+						if value == :NotImplemented
+							next
+						else
+							throw :SkipSuccess
+						end
 					rescue ParseError
 						next
 					end
