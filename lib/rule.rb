@@ -60,7 +60,9 @@ module Kaiseki
 		
 		def filter node = @name, &block
 			if @parseable
-				@grammar.nodes[@name] ||= Node.subclass([:result], :arity => {:result => 0})
+				unless @grammar.nodes.key? @name
+					@grammar.nodes[@name] = Node.default
+				end
 				@parseable = @parseable.filter node, &block
 			else
 				raise "parseable for rule #{@name.inspect} undefined"

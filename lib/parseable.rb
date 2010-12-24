@@ -56,7 +56,7 @@ module Kaiseki
 			CastResult.new self, to_class
 		end
 		
-		def filter node = Node.subclass([:result], :arity => {:result => 0}), &block
+		def filter node = Node.default, &block
 			FilterResult.new self, node, &block
 		end
 		

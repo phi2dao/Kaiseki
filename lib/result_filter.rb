@@ -2,7 +2,7 @@ module Kaiseki
 	class FilterResult < PackageParser
 		attr_reader :node, :block
 		
-		def initialize expected, node = Node.subclass([:result], :arity => {:result => 0}), &block
+		def initialize expected, node = Node.default, &block
 			super expected
 			@node = node
 			@block = block

@@ -54,6 +54,10 @@ module Kaiseki
 			Class.new(self).bind args, options
 		end
 		
+		def default
+			subclass [:result], :arity => {:result => 0}
+		end
+		
 		def bind args, options = {}
 			args.must_be Array
 			raise "can't bind parent NodeClass" if self == Node
