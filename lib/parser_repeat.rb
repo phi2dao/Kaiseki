@@ -18,8 +18,11 @@ module Kaiseki
 					begin
 						catch :SkipSuccess do
 							result << @expected.parse(stream, options)
+							count += 1
+							next
 						end
 						count += 1
+						break if max.nil?
 					rescue ParseError
 						if options[:skipping]
 							begin
