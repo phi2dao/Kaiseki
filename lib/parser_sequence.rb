@@ -22,6 +22,8 @@ module Kaiseki
 						else
 							raise e
 						end
+					rescue NotImplementedError
+						next
 					end
 				end
 				if options[:simplify]

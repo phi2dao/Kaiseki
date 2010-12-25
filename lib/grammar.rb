@@ -14,7 +14,7 @@ module Kaiseki
 		end
 		
 		def [] rule
-			GrammarStub.new @rules[rule], self
+			GrammarStub.new @rules[rule], self, rule
 		end
 		
 		def parse stream, options = {}

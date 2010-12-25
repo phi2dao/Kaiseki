@@ -13,16 +13,11 @@ module Kaiseki
 			stream.must_be Stream
 			stream.lock do
 				result = []
-				count = 0
-				while max.nil? or count < @max
+				while @max.nil? or result.length < @max
 					begin
 						catch :SkipSuccess do
 							result << @expected.parse(stream, options)
-							count += 1
-							next
 						end
-						count += 1
-						break if max.nil?
 					rescue ParseError
 						if options[:skipping]
 							begin
@@ -36,6 +31,8 @@ module Kaiseki
 						else
 							break
 						end
+					rescue NotImplementedError
+						break
 					end
 				end
 				if result.length < @min

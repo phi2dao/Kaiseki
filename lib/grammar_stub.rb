@@ -1,14 +1,22 @@
 module Kaiseki
 	class GrammarStub < PackageParser
-		attr_reader :grammar
+		attr_reader :grammar, :rule
 		
-		def initialize expected, grammar
+		def initialize expected, grammar, rule = 'main'
 			super expected
 			@grammar = grammar
+			@rule = rule
 		end
 		
 		def parse! stream, options = {}
-			@expected.parse stream, options.merge(:grammar => @grammar)
+			default_options = {
+				:grammar => @grammar,
+				:rule => @rule,
+				:skipping => @grammar.skipping_rule,
+				:simplify => @grammar.simplify,
+				:global => {}
+			}
+			@expected.parse stream, default_options.merge(options)
 		end
 		
 		def eql? other
