@@ -4,13 +4,13 @@ module Kaiseki
 		
 		def initialize string
 			if string.is_a? File
-				@string = ''
-				string.each_char {|n| @string << n }
+				@string = string.to_a.join
 			else
 				@string = string.to_s
 			end
 			@pos = 0
-			#index_lines
+			@newlines = []
+			index_lines
 		end
 		
 		def getc
@@ -29,14 +29,6 @@ module Kaiseki
 				match
 			else
 				nil
-			end
-		end
-		
-		def look len = 10
-			if @string.length - @pos > len
-				"\"#{@string[@pos, len - 3] + '...'}\""
-			else
-				"\"#{@string[@pos..-1]}\""
 			end
 		end
 		
@@ -79,20 +71,36 @@ module Kaiseki
 		alias :size :length
 		
 		def line
-			
+			bsearch @pos, 0, @newlines.length
 		end
 		
 		def column
-			
+			@pos - @newlines[self.line][0]
 		end
 		
 		private
 		def index_lines
-			
+			@newlines = []
+			start = 0
+			@string.length.times do |i|
+				if @string[i] == "\n"
+					@newlines << [start, i]
+					start = i + 1
+				end
+			end
+			@newlines << [start, @string.length]
 		end
 		
-		def bsearch
-			
+		def bsearch value, low, high
+			return nil if high < low
+			mid = low + (high - low) / 2
+			if value < @newlines[mid][0]
+				bsearch value, low, mid - 1
+			elsif value > @newlines[mid][1]
+				bsearch value, mid + 1, high
+			else
+				mid
+			end
 		end
 	end
 end

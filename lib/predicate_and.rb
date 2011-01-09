@@ -12,6 +12,10 @@ module Kaiseki
 			end
 		end
 		
+		def predicate?
+			true
+		end
+		
 		def to_s
 			"#{@expected}.and?"
 		end

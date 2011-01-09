@@ -4,6 +4,7 @@ module Kaiseki
 		attr_reader :expected, :min, :max
 		
 		def initialize expected, min, max = nil
+			raise "RepeatParser can't be initalized with a predicate" if expected.predicate?
 			@expected = expected.to_parseable
 			@min = min
 			@max = max

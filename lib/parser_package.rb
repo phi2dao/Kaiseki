@@ -4,6 +4,10 @@ module Kaiseki
 			super expected.to_parseable
 		end
 		
+		def predicate?
+			@expected.predicate?
+		end
+		
 		def to_s
 			@expected.to_s
 		end

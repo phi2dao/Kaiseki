@@ -18,6 +18,14 @@ module Kaiseki
 			end
 		end
 		
+		def custom &block
+			if @parseable
+				raise "parseable for rule #{@name.inspect} already defined"
+			else
+				@parseable = CustomParser.new &block
+			end
+		end
+		
 		def override options
 			if @parseable
 				@parseable = @parseable.override options

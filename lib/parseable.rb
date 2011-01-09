@@ -8,6 +8,10 @@ module Kaiseki
 			self.to_parseable.parse! stream.to_stream, options
 		end
 		
+		def predicate?
+			false
+		end
+		
 		def & other
 			SequenceParser.new self, other
 		end
