@@ -50,8 +50,8 @@ module Kaiseki
 				throw :SkipSuccess
 			rescue ParseError => e
 				@pos = safe_pos
-				#e.line ||= self.line
-				#e.column ||= self.column
+				e.line ||= self.line
+				e.column ||= self.column
 				raise e
 			end
 		end

@@ -21,6 +21,10 @@ module Kaiseki
 		
 		alias :| :append
 		
+		def predicate?
+			@expected.find {|n| n.predicate? } ? true : false
+		end
+		
 		def delimiter
 			'|'
 		end

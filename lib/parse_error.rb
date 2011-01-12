@@ -10,7 +10,7 @@ module Kaiseki
 		end
 		
 		def verbose
-			"#{@line ? @line + 1 : 0}:#{@column ? @column + 1 : 0}:#{to_s}"
+			"[#{@line ? @line + 1 : 0}:#{@column ? @column + 1 : 0}] #{to_s} [in #{@rule}]"
 		end
 	end
 end

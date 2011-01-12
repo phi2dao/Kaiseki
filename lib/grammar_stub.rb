@@ -2,7 +2,7 @@ module Kaiseki
 	class GrammarStub < PackageParser
 		attr_reader :grammar, :rule
 		
-		def initialize expected, grammar, rule = 'main'
+		def initialize expected, grammar, rule = '(main)'
 			super expected
 			@grammar = grammar
 			@rule = rule
@@ -11,7 +11,7 @@ module Kaiseki
 		def parse! stream, options = {}
 			default_options = {
 				:grammar => @grammar,
-				:rule => @rule,
+				:rule => @rule.to_s,
 				:skipping => @grammar.skipping_rule,
 				:simplify => @grammar.simplify,
 				:global => {}

@@ -3,7 +3,7 @@ module Kaiseki
 		def parse! stream, options = {}
 			if options[:grammar]
 				if options[:grammar].rules[@expected]
-					options[:grammar].rules[@expected].parse stream, options.merge(:rule => @expected)
+					options[:grammar].rules[@expected].parse stream, options.merge(:rule => @expected.to_s)
 				else
 					STDERR.puts "skipping #{self}: not implemented"
 					raise NotImplementedError

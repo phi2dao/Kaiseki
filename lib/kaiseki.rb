@@ -1,5 +1,5 @@
 module Kaiseki
-	VERSION = '1.0.7'
+	VERSION = '1.0.8'
 	file_path = File.dirname __FILE__
 	
 	#load basic kaiseki classes
@@ -30,7 +30,6 @@ module Kaiseki
 	require file_path + '/parser_repeat'
 	
 	require file_path + '/parser_package'
-	require file_path + '/parser_custom'
 	
 	#load predicates
 	require file_path + '/predicate_and'
@@ -54,4 +53,7 @@ module Kaiseki
 	require file_path + '/var_set'
 	require file_path + '/var_get'
 	require file_path + '/var_insert'
+	
+	#load others
+	require file_path + '/parser_custom'
 end

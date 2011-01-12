@@ -1,26 +1,21 @@
 module Kaiseki
-	attr_reader :name
-	
 	class CustomParser < BasicParser
-		def initialize name = nil, is_predicate = false, &block
+		NODE = Node.subclass [:stream, :options]
+		
+		def initialize is_predicate = false, &block
 			super block
-			@name = name
 			@is_predicate = is_predicate
 		end
 		
 		def parse! stream, options = {}
 			stream.must_be Stream
 			stream.lock do
-				@expected.call stream, options
+				NODE.new([stream, options], options[:global]).eval options[:global], &@expected
 			end
 		end
 		
 		def predicate?
 			@is_predicate
-		end
-		
-		def to_s
-			@name || @expected.inspect
 		end
 	end
 end

@@ -18,11 +18,11 @@ module Kaiseki
 			end
 		end
 		
-		def custom &block
+		def custom is_predicate = false, &block
 			if @parseable
 				raise "parseable for rule #{@name.inspect} already defined"
 			else
-				@parseable = CustomParser.new &block
+				@parseable = CustomParser.new is_predicate, &block
 			end
 		end
 		
@@ -36,6 +36,7 @@ module Kaiseki
 		
 		def skipping parseable
 			if @parseable
+				raise "skipping rule must not be a predicate" if parseable.predicate?
 				@parseable = @parseable.override :skipping => parseable.to_parseable
 			else
 				raise "parseable for rule #{@name.inspect} undefined"

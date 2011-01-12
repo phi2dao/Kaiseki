@@ -4,7 +4,7 @@ module Kaiseki
 		attr_reader :expected, :min, :max
 		
 		def initialize expected, min, max = nil
-			raise "RepeatParser can't be initalized with a predicate" if expected.predicate?
+			raise ArgumentError, "expected must not be a predicate" if expected.predicate?
 			@expected = expected.to_parseable
 			@min = min
 			@max = max
@@ -16,13 +16,13 @@ module Kaiseki
 				result = []
 				while @max.nil? or result.length < @max
 					begin
-						catch :SkipSuccess do
+						protect do
 							result << @expected.parse(stream, options)
 						end
 					rescue ParseError
 						if options[:skipping]
 							begin
-								catch :SkipSuccess do
+								protect do
 									options[:skipping].parse stream, options.merge(:skipping => nil)
 								end
 								redo

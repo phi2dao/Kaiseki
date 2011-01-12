@@ -12,7 +12,7 @@ module Kaiseki
 					rescue ParseError => e
 						if options[:skipping]
 							begin
-								catch :SkipSuccess do
+								protect do
 									options[:skipping].parse stream, options.merge(:skipping => nil)
 								end
 								redo
@@ -27,7 +27,14 @@ module Kaiseki
 					end
 				end
 				if options[:simplify]
-					result.length == 1 ? result[0] : result
+					case result.length
+					when 0
+						throw :SkipSuccess
+					when 1
+						result[0]
+					else
+						result
+					end
 				else
 					result
 				end
@@ -35,6 +42,10 @@ module Kaiseki
 		end
 		
 		alias :& :append
+		
+		def predicate?
+			@expected.find {|n| !n.predicate? } ? false : true
+		end
 		
 		def delimiter
 			'&'

@@ -28,7 +28,7 @@ module Kaiseki
 			stream.lock do
 				default_options = {
 					:grammar => self,
-					:rule => 'main',
+					:rule => '(main)',
 					:skipping => @skipping_rule,
 					:simplify => @simplify,
 					:global => {},
@@ -43,12 +43,13 @@ module Kaiseki
 		
 		def starting parseable
 			raise "starting rule already defined" if @starting_rule
-			@starting_rule = parseable
+			@starting_rule = parseable.to_parseable
 		end
 		
 		def skipping parseable
 			raise "skipping rule already defined" if @skipping_rule
-			@skipping_rule = parseable
+			raise "skipping rule must not be a predicate" if parseable.predicate?
+			@skipping_rule = parseable.to_parseable
 		end
 		
 		def simplify bool = true

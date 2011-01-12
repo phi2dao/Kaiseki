@@ -10,12 +10,12 @@ module Kaiseki
 				end
 				@result = '(skipped)'
 			rescue ParseError => e
-				@error = e
+				@error = e.verbose
 			end
 		end
 		
-		def has_errors?
-			!!@error
+		def parsed?
+			@result ? true : false
 		end
 	end
 end

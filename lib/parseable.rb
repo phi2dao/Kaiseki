@@ -12,6 +12,16 @@ module Kaiseki
 			false
 		end
 		
+		def protect &block
+			catch :ParseSuccess do
+				catch :SkipSuccess do
+					block.call
+					throw :ParseSuccess
+				end
+				raise RuntimeError, "#{self.to_s} must not catch a SkipSuccess"
+			end
+		end
+		
 		def & other
 			SequenceParser.new self, other
 		end
