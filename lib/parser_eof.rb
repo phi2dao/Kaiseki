@@ -9,7 +9,7 @@ module Kaiseki
 				if actual
 					raise ParseError.new "unexpected character \"#{actual}\" (expected end-of-string) when parsing #{self}", options
 				else
-					throw :SkipSuccess
+					true
 				end
 			end
 		end
