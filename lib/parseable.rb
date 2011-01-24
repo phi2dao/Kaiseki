@@ -74,6 +74,14 @@ module Kaiseki
 			FilterResult.new self, node, &block
 		end
 		
+		def action node = Node.default, &block
+			ActionResult.new self, node, &block
+		end
+		
+		def validate validators
+			ValidateResult.new self, validators
+		end
+		
 		def set *vars
 			SetVar.new self, *vars
 		end

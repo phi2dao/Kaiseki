@@ -78,6 +78,25 @@ module Kaiseki
 			end
 		end
 		
+		def action node = @name, &block
+			if @parseable
+				unless @grammar.nodes.key? @name
+					@grammar.nodes[@name] = Node.default
+				end
+				@parseable = @parseable.action node, &block
+			else
+				raise "parseable for rule #{@name.inspect} undefined"
+			end
+		end
+		
+		def validates validators
+			if @parseable
+				@parseable = @parseable.validate validators
+			else
+				raise "parseable for rule #{@name.inspect} undefined"
+			end
+		end
+		
 		def node args, options = {}
 			args.must_be Array
 			if @grammar.nodes.key? @name

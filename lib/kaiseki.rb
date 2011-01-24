@@ -1,5 +1,5 @@
 module Kaiseki
-	VERSION = '1.0.9'
+	VERSION = '1.1.1'
 	file_path = File.dirname __FILE__
 	
 	#load basic kaiseki classes
@@ -41,6 +41,8 @@ module Kaiseki
 	require file_path + '/result_merge'
 	require file_path + '/result_cast'
 	require file_path + '/result_filter'
+	require file_path + '/result_action'
+	require file_path + '/result_validate'
 	require file_path + '/node'
 	
 	#load grammar classes
