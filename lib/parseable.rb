@@ -5,7 +5,7 @@ module Kaiseki
 		end
 		
 		def parse stream, options = {}
-			stream = stream.to_parseable
+			stream = stream.to_stream
 			stream.lock do
 				self.to_parseable.parse! stream, options
 			end
