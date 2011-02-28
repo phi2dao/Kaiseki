@@ -8,7 +8,7 @@ module Kaiseki
 		end
 		
 		def parsed?
-			@errors.empty?
+			@results.key?(:main)
 		end
 		
 		def result
