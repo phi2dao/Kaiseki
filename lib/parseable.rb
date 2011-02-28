@@ -7,7 +7,7 @@ module Kaiseki
 		def parse stream, options = {}
 			stream = stream.to_stream
 			stream.lock do
-				self.to_parseable.parse! stream, options
+				parse! stream, options
 			end
 		end
 		
@@ -95,6 +95,11 @@ module Kaiseki
 		
 		def tag_error name
 			ErrorTag.new self, name
+		end
+		
+		private
+		def parse! stream, options = {}
+			self.to_parseable.parse stream, options
 		end
 	end
 end
