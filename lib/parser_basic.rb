@@ -7,10 +7,6 @@ module Kaiseki
 			@expected = expected
 		end
 		
-		def parse! stream, options = {}
-			raise NotImplementedError
-		end
-		
 		def eql? other
 			other.is_a?(self.class) and other.expected == @expected
 		end
@@ -19,6 +15,11 @@ module Kaiseki
 		
 		def to_s
 			@expected.inspect
+		end
+		
+		private
+		def parse! stream, options = {}
+			raise NotImplementedError
 		end
 	end
 end

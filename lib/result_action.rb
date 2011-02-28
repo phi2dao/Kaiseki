@@ -1,5 +1,7 @@
 module Kaiseki
 	class ActionResult < FilterResult
+		
+		private
 		def parse! stream, options = {}
 			if @node.is_a? Class
 				node_class = @node

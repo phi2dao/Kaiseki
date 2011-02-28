@@ -1,5 +1,7 @@
 module Kaiseki
 	class MergeResult < PackageParser
+		
+		private
 		def parse! stream, options = {}
 			results = @expected.parse stream, options
 			new_results = []

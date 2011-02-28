@@ -1,18 +1,16 @@
 module Kaiseki
 	class RegexpParser < BasicParser
+		private
 		def parse! stream, options = {}
-			stream.must_be Stream
-			stream.lock do
-				match = stream.match @expected
-				if match
-					if options[:simplify]
-						match.to_s
-					else
-						match
-					end
+			match = stream.match @expected
+			if match
+				if options[:simplify]
+					match.to_s
 				else
-					raise ParseError.new "non-matching characters when parsing #{self}", options
+					match
 				end
+			else
+				raise ParseError.new "non-matching characters when parsing #{self}", options
 			end
 		end
 	end

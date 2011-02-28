@@ -5,7 +5,10 @@ module Kaiseki
 		end
 		
 		def parse stream, options = {}
-			self.to_parseable.parse! stream.to_stream, options
+			stream = stream.to_parseable
+			stream.lock do
+				self.to_parseable.parse! stream, options
+			end
 		end
 		
 		def predicate?
@@ -84,6 +87,14 @@ module Kaiseki
 		
 		def set *vars
 			SetVar.new self, *vars
+		end
+		
+		def tag_result name
+			ResultTag.new self, name
+		end
+		
+		def tag_error name
+			ErrorTag.new self, name
 		end
 	end
 end

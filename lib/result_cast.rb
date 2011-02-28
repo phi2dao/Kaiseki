@@ -7,6 +7,13 @@ module Kaiseki
 			@to_class = to_class
 		end
 		
+		def eql? other
+			other.is_a?(self.class) and other.expected == @expected and other.to_class == @to_class
+		end
+		
+		alias :== :eql?
+		
+		private
 		def parse! stream, options = {}
 			result = @expected.parse stream, options
 			if @to_class == Integer
@@ -23,11 +30,5 @@ module Kaiseki
 				raise "can't cast to #{@to_class}"
 			end
 		end
-		
-		def eql? other
-			other.is_a?(self.class) and other.expected == @expected and other.to_class == @to_class
-		end
-		
-		alias :== :eql?
 	end
 end

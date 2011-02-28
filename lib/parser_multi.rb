@@ -1,10 +1,7 @@
 module Kaiseki
 	class MultiParser < BasicParser
 		def initialize *parsers
-			@expected = []
-			parsers.each do |n|
-				append n
-			end
+			@expected = parsers.collect {|n| n.to_parseable }
 		end
 		
 		def append parseable

@@ -8,6 +8,13 @@ module Kaiseki
 			@block = block
 		end
 		
+		def eql? other
+			other.is_a?(self.class) and other.expected == @expected and other.block == @block
+		end
+		
+		alias :== :eql?
+		
+		private
 		def parse! stream, options = {}
 			if @node.is_a? Class
 				node_class = @node
@@ -26,11 +33,5 @@ module Kaiseki
 			end
 			node.eval options[:global], &@block
 		end
-		
-		def eql? other
-			other.is_a?(self.class) and other.expected == @expected and other.block == @block
-		end
-		
-		alias :== :eql?
 	end
 end

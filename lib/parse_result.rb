@@ -1,21 +1,26 @@
 module Kaiseki
 	class ParseResult
-		attr_reader :result, :error
+		attr_reader :results, :errors
 		
-		def initialize &block
-			begin
-				catch :SkipSuccess do
-					@result = block.call
-					return
-				end
-				@result = '(skipped)'
-			rescue ParseError => e
-				@error = e.verbose
-			end
+		def initialize
+			@results = {}
+			@errors = {}
 		end
 		
 		def parsed?
-			@result ? true : false
+			@errors.empty?
+		end
+		
+		def result
+			@results[:main]
+		end
+		
+		def error
+			@errors[:main]
+		end
+		
+		def error_msg error = :main
+			@errors.key?(error) ? @errors[error].verbose : nil
 		end
 	end
 end

@@ -1,6 +1,5 @@
 module Kernel
 	private
-	
 	def get var, parser
 		Kaiseki::GetVar.new var, parser
 	end

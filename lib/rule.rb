@@ -67,6 +67,38 @@ module Kaiseki
 			end
 		end
 		
+		def validates validators
+			if @parseable
+				@parseable = @parseable.validate validators
+			else
+				raise "parseable for rule #{@name.inspect} undefined"
+			end
+		end
+		
+		def set *vars
+			if @parseable
+				@parseable = @parseable.set *vars
+			else
+				raise "parseable for rule #{@name.inspect} undefined"
+			end
+		end
+		
+		def tag_result name = @name
+			if @parseable
+				@parseable = @parseable.tag_result name
+			else
+				raise "parseable for rule #{@name.inspect} undefined"
+			end
+		end
+		
+		def tag_error name = @name
+			if @parseable
+				@parseable = @parseable.tag_error name
+			else
+				raise "parseable for rule #{@name.inspect} undefined"
+			end
+		end
+		
 		def filter node = @name, &block
 			if @parseable
 				unless @grammar.nodes.key? @name
@@ -89,14 +121,6 @@ module Kaiseki
 			end
 		end
 		
-		def validates validators
-			if @parseable
-				@parseable = @parseable.validate validators
-			else
-				raise "parseable for rule #{@name.inspect} undefined"
-			end
-		end
-		
 		def node args, options = {}
 			args.must_be Array
 			if @grammar.nodes.key? @name
@@ -104,14 +128,6 @@ module Kaiseki
 			else
 				parent = options[:class] || Node
 				@grammar.nodes[@name] = parent.subclass args, options
-			end
-		end
-		
-		def set *vars
-			if @parseable
-				@parseable = @parseable.set *vars
-			else
-				raise "parseable for rule #{@name.inspect} undefined"
 			end
 		end
 	end

@@ -7,15 +7,13 @@ module Kaiseki
 			@is_predicate = is_predicate
 		end
 		
-		def parse! stream, options = {}
-			stream.must_be Stream
-			stream.lock do
-				NODE.new([stream, options], options[:global]).eval options[:global], &@expected
-			end
-		end
-		
 		def predicate?
 			@is_predicate
+		end
+		
+		private
+		def parse! stream, options = {}
+			NODE.new([stream, options], options[:global]).eval options[:global], &@expected
 		end
 	end
 end

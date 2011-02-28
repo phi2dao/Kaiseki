@@ -1,5 +1,5 @@
 module Kaiseki
-	VERSION = '1.1.1'
+	VERSION = '1.2.1'
 	file_path = File.dirname __FILE__
 	
 	#load basic kaiseki classes
@@ -55,6 +55,11 @@ module Kaiseki
 	require file_path + '/var_set'
 	require file_path + '/var_get'
 	require file_path + '/var_insert'
+	
+	#load result tags
+	require file_path + '/tag_basic'
+	require file_path + '/tag_result'
+	require file_path + '/tag_error'
 	
 	#load others
 	require file_path + '/parser_custom'

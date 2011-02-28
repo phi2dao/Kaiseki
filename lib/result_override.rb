@@ -7,14 +7,15 @@ module Kaiseki
 			@options = options
 		end
 		
-		def parse! stream, options = {}
-			@expected.parse stream, options.merge(@options)
-		end
-		
 		def eql? other
 			other.is_a?(self.class) and other.expected == @expected and other.options == @options
 		end
 		
 		alias :== :eql?
+		
+		private
+		def parse! stream, options = {}
+			@expected.parse stream, options.merge(@options)
+		end
 	end
 end

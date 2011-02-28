@@ -1,5 +1,16 @@
 module Kaiseki
 	class SequenceParser < MultiParser
+		alias :& :append
+		
+		def predicate?
+			@expected.find {|n| !n.predicate? } ? false : true
+		end
+		
+		def delimiter
+			'&'
+		end
+		
+		private
 		def parse! stream, options = {}
 			stream.must_be Stream
 			stream.lock do
@@ -39,16 +50,6 @@ module Kaiseki
 					result
 				end
 			end
-		end
-		
-		alias :& :append
-		
-		def predicate?
-			@expected.find {|n| !n.predicate? } ? false : true
-		end
-		
-		def delimiter
-			'&'
 		end
 	end
 end

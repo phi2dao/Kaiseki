@@ -7,6 +7,13 @@ module Kaiseki
 			@validators = validators
 		end
 		
+		def eql? other
+			other.is_a?(self.class) and other.expected == @expected and other.validators == @validators
+		end
+		
+		alias :== :eql?
+		
+		private
 		def parse! stream, options = {}
 			result = @expected.parse stream, options
 			passed = true
@@ -28,11 +35,5 @@ module Kaiseki
 				raise ParseError.new "`#{result}' does not pass validation", options
 			end
 		end
-		
-		def eql? other
-			other.is_a?(self.class) and other.expected == @expected and other.validators == @validators
-		end
-		
-		alias :== :eql?
 	end
 end

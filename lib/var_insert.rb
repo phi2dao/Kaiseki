@@ -1,5 +1,10 @@
 module Kaiseki
 	class InsertVar < BasicParser
+		def to_s
+			"#{@expected.is_a?(Symbol) ? "$#{@expected}" : @expected.inspect} (ins)"
+		end
+		
+		private
 		def parse! stream, options = {}
 			if @expected.is_a? Symbol
 				if options[:global] and options[:global].key?(@expected)
@@ -10,10 +15,6 @@ module Kaiseki
 			else
 				@expected
 			end
-		end
-		
-		def to_s
-			"#{@expected.is_a?(Symbol) ? "$#{@expected}" : @expected.inspect} (ins)"
 		end
 	end
 end

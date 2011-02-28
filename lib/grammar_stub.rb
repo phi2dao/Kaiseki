@@ -8,21 +8,22 @@ module Kaiseki
 			@rule = rule
 		end
 		
-		def parse! stream, options = {}
-			default_options = {
-				:grammar => @grammar,
-				:rule => @rule.to_s,
-				:skipping => @grammar.skipping_rule,
-				:simplify => @grammar.simplify,
-				:global => {}
-			}
-			@expected.parse stream, default_options.merge(options)
-		end
-		
 		def eql? other
 			other.is_a?(self.class) and other.expected == @expected and other.grammar == @grammar
 		end
 		
 		alias :== :eql?
+		
+		private
+		def parse! stream, options = {}
+			default_options = {
+				:grammar => @grammar,
+				:global = {},
+				:rule => @rule.to_s,
+				:skipping => @grammar.skipping_rule,
+				:simplify => @grammar.simplify,
+			}
+			@expected.parse stream, default_options.merge(options)
+		end
 	end
 end

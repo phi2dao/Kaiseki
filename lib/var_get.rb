@@ -7,6 +7,17 @@ module Kaiseki
 			@parser = parser.to_parseable
 		end
 		
+		def eql? other
+			other.is_a?(self.class) and other.expected == @expected and other.parser == @parser
+		end
+		
+		alias :== :eql?
+		
+		def to_s
+			"#{@expected.is_a?(Symbol) ? "$#{@expected}" : @expected.inspect} (match)"
+		end
+		
+		private
 		def parse! stream, options = {}
 			if @expected.is_a? Symbol
 				if options[:global] and options[:global].key?(@expected)
@@ -25,16 +36,6 @@ module Kaiseki
 			else
 				raise ParseError.new "unexpected result #{result.inspect} (expected #{source.inspect}) when parsing #{@parser}", options
 			end
-		end
-		
-		def eql? other
-			other.is_a?(self.class) and other.expected == @expected and other.parser == @parser
-		end
-		
-		alias :== :eql?
-		
-		def to_s
-			"#{@expected.is_a?(Symbol) ? "$#{@expected}" : @expected.inspect} (match)"
 		end
 	end
 end
