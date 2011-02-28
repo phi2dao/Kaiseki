@@ -33,6 +33,7 @@ module Kaiseki
 			rescue ParseError => e
 				options[:result].errors[:main] = e
 			end
+			options[:result]
 		end
 		
 		def starting parseable
