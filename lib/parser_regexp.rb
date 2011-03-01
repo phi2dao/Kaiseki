@@ -10,7 +10,7 @@ module Kaiseki
 					match
 				end
 			else
-				raise ParseError.new "non-matching characters when parsing #{self}", options
+				raise ParseError.new "non-matching characters when parsing #{self}", options[:rule]
 			end
 		end
 	end

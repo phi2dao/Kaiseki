@@ -5,6 +5,7 @@ module Kaiseki
 		end
 		
 		def parse stream, options = {}
+			options[:global] ||= {}
 			stream = stream.to_stream
 			stream.lock do
 				parse! stream, options
@@ -99,6 +100,7 @@ module Kaiseki
 		
 		private
 		def parse! stream, options = {}
+			raise NotImplementedError, "#{self.class} does not have an implemented #parse!" if self.to_parseable == self
 			self.to_parseable.parse stream, options
 		end
 	end

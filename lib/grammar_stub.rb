@@ -18,7 +18,6 @@ module Kaiseki
 		def parse! stream, options = {}
 			default_options = {
 				:grammar => @grammar,
-				:global => {},
 				:rule => @rule.to_s,
 				:skipping => @grammar.skipping_rule,
 				:simplify => @grammar.simplify,

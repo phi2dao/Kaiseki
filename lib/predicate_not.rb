@@ -15,7 +15,7 @@ module Kaiseki
 			rescue ParseError
 				throw :PredicateSuccess
 			end
-			raise ParseError.new "predicate not satisfied when parsing #{self}: matched #{result}", options
+			raise ParseError.new "predicate not satisfied when parsing #{self}: matched #{result}", options[:rule]
 		end
 	end
 end

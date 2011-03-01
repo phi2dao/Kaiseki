@@ -32,7 +32,7 @@ module Kaiseki
 			if passed
 				result
 			else
-				raise ParseError.new "`#{result}' does not pass validation", options
+				raise ParseError.new "`#{result}' does not pass validation", options[:rule]
 			end
 		end
 	end

@@ -19,21 +19,21 @@ module Kaiseki
 		
 		def parse stream, options = {}
 			raise 'starting rule undefined' unless @starting_rule
+			result = ParseResult.new
 			default_options = {
 				:grammar => self,
-				:result => ParseResult.new,
-				:global => {},
+				:result => result,
 				:rule => '(main)',
 				:skipping => @skipping_rule,
 				:simplify => @simplify
 			}
 			options = default_options.merge options
 			begin
-				options[:result].results[:main] = @starting_rule.parse stream.to_stream, options
+				result.results[:main] = @starting_rule.parse stream.to_stream, options
 			rescue ParseError => e
-				options[:result].errors[:main] = e
+				result.errors[:main] = e
 			end
-			options[:result]
+			result
 		end
 		
 		def starting parseable

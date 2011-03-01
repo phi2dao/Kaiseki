@@ -22,5 +22,9 @@ module Kaiseki
 		def error_msg error = :main
 			@errors.key?(error) ? @errors[error].verbose : nil
 		end
+		
+		def backtrace error = :main
+			@errors.key?(error) ? @errors[error].parsetrace.collect {|n| n.verbose } : nil
+		end
 	end
 end

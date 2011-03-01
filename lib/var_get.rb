@@ -34,7 +34,7 @@ module Kaiseki
 			elsif source == result
 				result
 			else
-				raise ParseError.new "unexpected result #{result.inspect} (expected #{source.inspect}) when parsing #{@parser}", options
+				raise ParseError.new "unexpected result #{result.inspect} (expected #{source.inspect}) when parsing #{@parser}", options[:rule]
 			end
 		end
 	end

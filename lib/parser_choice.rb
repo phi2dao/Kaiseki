@@ -12,19 +12,19 @@ module Kaiseki
 		
 		private
 		def parse! stream, options = {}
-			error = true
+			error = nil
 			@expected.each do |n|
 				begin
 					catch :SkipSuccess do
 						return n.parse stream, options
 					end
-				rescue ParseError
+				rescue ParseError => error
 					next
-				rescue NotImplementedError
+				rescue NotImplementedError => error
 					next
 				end
 			end
-			raise ParseError.new "no valid alternatives when parsing #{self}", options
+			raise ParseError.new "no valid alternatives when parsing #{self}", options[:rule], error
 		end
 	end
 end

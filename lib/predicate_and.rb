@@ -13,7 +13,7 @@ module Kaiseki
 			begin
 				@expected.parse stream, options
 			rescue ParseError => e
-				raise ParseError.new "predicate not satisfied when parsing #{self}: #{e.to_s}", options
+				raise ParseError.new "predicate not satisfied when parsing #{self}: #{e.to_s}", options[:rule], e
 			end
 			throw :PredicateSuccess
 		end

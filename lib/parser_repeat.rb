@@ -27,12 +27,13 @@ module Kaiseki
 		private
 		def parse! stream, options = {}
 			result = []
+			error = nil
 			while @max.nil? or result.length < @max
 				begin
 					protect do
 						result << @expected.parse(stream, options)
 					end
-				rescue ParseError
+				rescue ParseError => error
 					if options[:skipping]
 						begin
 							protect do
@@ -45,12 +46,12 @@ module Kaiseki
 					else
 						break
 					end
-				rescue NotImplementedError
+				rescue NotImplementedError => error
 					break
 				end
 			end
 			if result.length < @min
-				raise ParseError.new "expected #{@min} match#{'es' unless @min == 1} but obtained #{result.length} when parsing #{self}", options
+				raise ParseError.new "expected #{@min} match#{'es' unless @min == 1} but obtained #{result.length} when parsing #{self}", options[:rule], error
 			else
 				if options[:simplify]
 					if @min == 0 and @max == 1

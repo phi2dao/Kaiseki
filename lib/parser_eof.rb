@@ -16,7 +16,7 @@ module Kaiseki
 		def parse! stream, options = {}
 			actual = stream.getc
 			if actual
-				raise ParseError.new "unexpected character \"#{actual}\" (expected end-of-string) when parsing #{self}", options
+				raise ParseError.new "unexpected character \"#{actual}\" (expected end-of-string) when parsing #{self}", options[:rule]
 			else
 				true
 			end
