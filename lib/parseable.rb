@@ -22,7 +22,7 @@ module Kaiseki
 					block.call
 					throw :ParseSuccess
 				end
-				raise RuntimeError, "#{self.to_s} must not catch a SkipSuccess"
+				raise RuntimeError, "#{self} must not catch a SkipSuccess"
 			end
 		end
 		
@@ -48,6 +48,10 @@ module Kaiseki
 		
 		def one_or_more
 			repeat 1
+		end
+		
+		def list delimiter = ','
+			ListParser.new self, delimiter
 		end
 		
 		def and?

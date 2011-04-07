@@ -22,6 +22,10 @@ module Kaiseki
 			end
 		end
 		
+		def eof?
+			@pos == @string.length
+		end
+		
 		def match regexp
 			match = @string[@pos..-1].match /\A#{regexp}/
 			if match
